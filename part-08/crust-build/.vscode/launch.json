@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Mac - Console - Launch",
+            "type": "lldb",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/../macos-console/out/debug",
+            "program": "${workspaceRoot}/../macos-console/out/debug/crust",
+            "args": [],
+            "sourceLanguages": [
+                "rust"
+            ],
+            "preLaunchTask": "build-dev-application"
+        },
+        {
+            "name": "Windows - Desktop - Launch",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/../windows/out/debug",
+            "program": "crust.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "environment": [],
+            "console": "newExternalWindow",
+            "preLaunchTask": "build-dev-application"
+        }
+    ]
+}

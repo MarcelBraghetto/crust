@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdk 30
+    ndkVersion '22.1.7171670'
+
+    defaultConfig {
+        applicationId "io.github.marcelbraghetto.crust"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            // Note: If you actually wanted to publish your app you should create a proper release
+            // signing key but for easy testing of release builds we can take this approach to adopt
+            // the debug signing key by default.
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+        }
+    }
+}
+
+def rustBuild = tasks.register("rustBuild") {
+    doLast {
+        exec {
+            environment << ['ANDROID_NDK_ROOT': "${android.ndkDirectory}"]
+            workingDir file("$projectDir/../../crust-build").absolutePath
+            commandLine 'cargo', 'run', '--', '--target', 'android', '--variant', gradle.startParameter.taskNames[0].contains('assembleRelease') ? 'release' : 'debug'
+        }
+    }
+}
+
+preBuild.dependsOn rustBuild

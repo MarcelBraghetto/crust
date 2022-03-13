@@ -1,0 +1,27 @@
+[package]
+name = "crust"
+version = "1.0.0"
+authors = ["Marcel Braghetto"]
+edition = "2021"
+rust-version = "1.59.0"
+
+[lib]
+name = "crustlib"
+path = "src/lib.rs"
+crate-type = ["lib"]
+
+[[bin]]
+name = "crust"
+path = "src/bin.rs"
+
+[dependencies]
+libc = "0.2.88" # Note iOS targets won't compile without this.
+gl = "0.14.0"
+tobj = "2.0.3"
+glm = "0.2.3"
+sdl2-sys = "0.34.4"
+
+[dependencies.sdl2]
+version = "0.34.4"
+default-features = false
+features = ["use_mac_framework", "image"]
